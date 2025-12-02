@@ -33,10 +33,10 @@ export async function searchTools(query: string) {
     }
 
     // 4. Combine and deduplicate results, prioritizing exact matches
-    const exactIds = new Set((exactMatches || []).map(tool => tool.id));
+    const exactIds = new Set((exactMatches || []).map((tool: any) => tool.id));
     const combinedResults = [
-      ...(exactMatches || []).map(tool => ({ ...tool, similarity: 10.0 })), // Much higher score for exact matches
-      ...(semanticMatches || []).filter(tool => !exactIds.has(tool.id))
+      ...(exactMatches || []).map((tool: any) => ({ ...tool, similarity: 10.0 })), // Much higher score for exact matches
+      ...(semanticMatches || []).filter((tool: any) => !exactIds.has(tool.id))
     ];
 
     // 5. Sort by similarity score (highest first)
