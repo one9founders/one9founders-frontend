@@ -2,8 +2,9 @@ import { getToolById } from '@/app/actions';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 
-export default async function ToolPage({ params }: { params: { id: string } }) {
-  const tool = await getToolById(parseInt(params.id));
+export default async function ToolPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const tool = await getToolById(parseInt(id));
   
   if (!tool) {
     notFound();
