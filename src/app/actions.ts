@@ -369,3 +369,117 @@ export async function seedDatabase() {
     return { success: false, error };
   }
 }
+
+// Newsletter subscription
+export async function subscribeToNewsletter(email: string) {
+  try {
+    const { error } = await supabase
+      .from('newsletter_subscriptions')
+      .insert({ email, source: 'homepage' });
+
+    if (error) {
+      if (error.code === '23505') {
+        return { success: false, error: 'Email already subscribed' };
+      }
+      throw error;
+    }
+
+    // Send welcome email
+    try {
+      const { sendWelcomeEmail } = await import('@/lib/emailService');
+      await sendWelcomeEmail(email);
+    } catch (emailError) {
+      console.error('Failed to send welcome email:', emailError);
+    }
+
+    return { success: true };
+  } catch (error) {
+    console.error('Newsletter subscription error:', error);
+    return { success: false, error: 'Failed to subscribe' };
+  }
+}
+
+// Get all active deals
+export async function getAllDeals() {
+  try {
+    const { data, error } = await supabase
+      .from('deals')
+      .select('*')
+      .eq('is_active', true)
+      .order('featured_deal', { ascending: false })
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      console.error('Supabase deals error:', error);
+      throw error;
+    }
+    console.log('Deals data:', data);
+    return data || [];
+  } catch (error) {
+    console.error('Get deals error:', error);
+    return [];
+  }
+}
+
+// Seed deals data
+export async function seedDeals() {
+  const dealsData = [
+    {
+      tool_name: "ChatGPT Pro",
+      offer_title: "Black Friday Special",
+      tool_short_desc: "Advanced AI conversation for businesses",
+      image_url: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=300&fit=crop",
+      old_price: 40,
+      new_price: 20,
+      discount_percentage: 50,
+      expiry_date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+      claims_count: 1234,
+      offer_tag: "50% OFF",
+      featured_deal: true,
+      deal_url: "https://chat.openai.com/"
+    },
+    {
+      tool_name: "Midjourney",
+      offer_title: "Annual Plan Discount",
+      tool_short_desc: "AI image generation platform",
+      image_url: "https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=400&h=300&fit=crop",
+      old_price: 120,
+      new_price: 96,
+      discount_percentage: 20,
+      expiry_date: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+      claims_count: 567,
+      offer_tag: "20% OFF",
+      featured_deal: false,
+      deal_url: "https://midjourney.com/"
+    },
+    {
+      tool_name: "Notion AI",
+      offer_title: "Student Discount",
+      tool_short_desc: "Smart workspace with AI assistance",
+      image_url: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&h=300&fit=crop",
+      old_price: 16,
+      new_price: 8,
+      discount_percentage: 50,
+      expiry_date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+      claims_count: 892,
+      offer_tag: "STUDENT",
+      featured_deal: true,
+      deal_url: "https://notion.so/"
+    }
+  ];
+
+  try {
+    for (const deal of dealsData) {
+      const { error } = await supabase.from('deals').insert(deal);
+      if (error) {
+        console.error(`Error inserting deal ${deal.tool_name}:`, error);
+      } else {
+        console.log(`Inserted deal for ${deal.tool_name}`);
+      }
+    }
+    return { success: true };
+  } catch (error) {
+    console.error('Seed deals error:', error);
+    return { success: false, error };
+  }
+}

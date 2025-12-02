@@ -2,6 +2,7 @@
 
 import { Tool } from '@/types';
 import { useState } from 'react';
+import Link from 'next/link';
 
 interface ToolCardProps {
   tool: Tool;
@@ -143,6 +144,12 @@ export default function ToolCard({ tool }: ToolCardProps) {
 
         {/* Actions */}
         <div className="flex gap-2">
+          <Link
+            href={`/tool/${tool.id}`}
+            className="flex-1 text-center py-2 px-4 rounded-lg font-medium transition-colors bg-gray-700 text-white hover:bg-gray-600"
+          >
+            View Details
+          </Link>
           {tool.url && (
             <a
               href={tool.url}
@@ -153,15 +160,6 @@ export default function ToolCard({ tool }: ToolCardProps) {
             >
               Visit Tool
             </a>
-          )}
-          {tool.video_demo_url && !showVideo && (
-            <button
-              onClick={() => setShowVideo(true)}
-              className="px-4 py-2 rounded-lg font-medium transition-colors border"
-              style={{ borderColor: 'var(--gray-700)', color: 'var(--gray-300)' }}
-            >
-              Demo
-            </button>
           )}
         </div>
       </div>

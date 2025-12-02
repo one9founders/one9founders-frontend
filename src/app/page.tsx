@@ -1,6 +1,7 @@
 import Navbar from "../components/Navbar";
 import HeroSection from "../components/HeroSection";
 import PortfolioSection from "../components/PortfolioSection";
+import NewsletterSignup from "../components/NewsletterSignup";
 import Footer from "../components/Footer";
 
 export default function Home() {
@@ -9,6 +10,7 @@ export default function Home() {
       <Navbar />
       <HeroSection />
       <PortfolioSection />
+      <NewsletterSignup />
       <Footer />
     </div>
   );
