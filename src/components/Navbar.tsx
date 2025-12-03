@@ -8,7 +8,7 @@ import AuthModal from './AuthModal';
 import Swal from 'sweetalert2';
 
 export default function Navbar() {
-  const { user, loading } = useAuth();
+  const { user, loading, isAuthenticated } = useAuth();
   const [showAuthModal, setShowAuthModal] = useState(false);
 
   const scrollToTools = () => {
@@ -63,9 +63,9 @@ export default function Navbar() {
           </div>
           <div className="flex items-center space-x-4">
             {!loading && (
-              user ? (
+              isAuthenticated ? (
                 <div className="flex items-center space-x-4">
-                  <span className="text-white text-sm">{user.user_metadata?.full_name || user.email}</span>
+                  <span className="text-white text-sm">{user?.name || user?.email}</span>
                   <button onClick={handleSignOut} className="text-gray-400 hover:text-white">
                     Sign Out
                   </button>

@@ -1,4 +1,4 @@
-import { supabase } from './supabaseClient';
+import { newsAPI } from './apiClient';
 
 export interface NewsArticle {
   id: number;
@@ -13,25 +13,16 @@ export interface NewsArticle {
 }
 
 export async function getNews(category?: string) {
-  let query = supabase.from('news').select('*').order('date', { ascending: false });
+  const data = await newsAPI.getAll();
   
   if (category && category !== 'All') {
-    query = query.eq('category', category);
+    return data.filter((article: NewsArticle) => article.category === category);
   }
   
-  const { data, error } = await query;
-  
-  if (error) throw error;
   return data as NewsArticle[];
 }
 
 export async function getNewsById(id: string) {
-  const { data, error } = await supabase
-    .from('news')
-    .select('*')
-    .eq('id', id)
-    .single();
-  
-  if (error) throw error;
+  const data = await newsAPI.getById(parseInt(id));
   return data as NewsArticle;
 }

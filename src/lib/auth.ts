@@ -1,44 +1,59 @@
-'use client';
+import { signIn as nextAuthSignIn, signOut as nextAuthSignOut } from 'next-auth/react';
 
-import { supabase } from './supabaseClient';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
 
 export const signUp = async (email: string, password: string, name: string) => {
-  const { data, error } = await supabase.auth.signUp({
-    email,
-    password,
-    options: {
-      data: {
-        full_name: name,
-      }
+  try {
+    const response = await fetch(`${API_URL}/auth/register/`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password, name }),
+    });
+
+    const data = await response.json();
+    
+    if (response.ok) {
+      return { data, error: null };
+    } else {
+      return { data: null, error: new Error(data.error || 'Registration failed') };
     }
-  });
-  return { data, error };
+  } catch (error) {
+    return { data: null, error: new Error('Network error') };
+  }
 };
 
 export const signIn = async (email: string, password: string) => {
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
-  return { data, error };
+  try {
+    const result = await nextAuthSignIn('credentials', {
+      email,
+      password,
+      redirect: false,
+    });
+
+    if (result?.error) {
+      return { data: null, error: new Error('Invalid credentials') };
+    }
+
+    return { data: result, error: null };
+  } catch (error) {
+    return { data: null, error: error as Error };
+  }
 };
 
 export const signInWithGoogle = async () => {
-  const { data, error } = await supabase.auth.signInWithOAuth({
-    provider: 'google',
-    options: {
-      redirectTo: `${window.location.origin}/auth/callback`
-    }
-  });
-  return { data, error };
+  try {
+    await nextAuthSignIn('google', { callbackUrl: '/' });
+    return { data: null, error: null };
+  } catch (error) {
+    return { data: null, error: error as Error };
+  }
 };
 
 export const signOut = async () => {
-  const { error } = await supabase.auth.signOut();
-  return { error };
-};
-
-export const getCurrentUser = async () => {
-  const { data: { user } } = await supabase.auth.getUser();
-  return user;
+  try {
+    await nextAuthSignOut({ callbackUrl: '/' });
+    return { error: null };
+  } catch (error) {
+    return { error: error as Error };
+  }
 };
