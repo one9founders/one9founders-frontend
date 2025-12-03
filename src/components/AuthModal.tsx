@@ -80,7 +80,9 @@ export default function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps
               placeholder="Full Name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full px-4 py-3 bg-gray-700 text-white rounded-lg border border-gray-600 focus:border-blue-500 focus:outline-none"
+              className="w-full px-4 py-3 bg-gray-700 text-white rounded-lg border border-gray-600 focus:outline-none"
+              onFocus={(e) => e.target.style.borderColor = 'var(--brand-primary)'}
+              onBlur={(e) => e.target.style.borderColor = 'var(--gray-600)'}
               required
             />
           )}
@@ -89,7 +91,9 @@ export default function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-4 py-3 bg-gray-700 text-white rounded-lg border border-gray-600 focus:border-blue-500 focus:outline-none"
+            className="w-full px-4 py-3 bg-gray-700 text-white rounded-lg border border-gray-600 focus:outline-none"
+            onFocus={(e) => e.target.style.borderColor = 'var(--brand-primary)'}
+            onBlur={(e) => e.target.style.borderColor = 'var(--gray-600)'}
             required
           />
           <input
@@ -97,7 +101,9 @@ export default function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-4 py-3 bg-gray-700 text-white rounded-lg border border-gray-600 focus:border-blue-500 focus:outline-none"
+            className="w-full px-4 py-3 bg-gray-700 text-white rounded-lg border border-gray-600 focus:outline-none"
+            onFocus={(e) => e.target.style.borderColor = 'var(--brand-primary)'}
+            onBlur={(e) => e.target.style.borderColor = 'var(--gray-600)'}
             required
           />
           
@@ -110,7 +116,7 @@ export default function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps
           <button
             type="submit"
             disabled={loading || !isVerified}
-            className="w-full py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+            className="btn-primary w-full py-3 disabled:opacity-50"
           >
             {loading ? 'Loading...' : (isLogin ? 'Sign In' : 'Sign Up')}
           </button>
@@ -136,7 +142,8 @@ export default function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps
           {isLogin ? "Don't have an account? " : "Already have an account? "}
           <button
             onClick={() => setIsLogin(!isLogin)}
-            className="text-blue-400 hover:text-blue-300"
+            className="hover:opacity-80"
+            style={{ color: 'var(--brand-light)' }}
           >
             {isLogin ? 'Sign Up' : 'Sign In'}
           </button>

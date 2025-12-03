@@ -72,7 +72,7 @@ export default function ToolCard({ tool }: ToolCardProps) {
             </span>
           )}
           {tool.verified && (
-            <span className="px-2 py-1 text-xs rounded-full bg-blue-500 text-white font-medium">
+            <span className="px-2 py-1 text-xs rounded-full text-white font-medium" style={{ backgroundColor: 'var(--brand-primary)' }}>
               Verified
             </span>
           )}

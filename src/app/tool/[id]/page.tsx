@@ -13,7 +13,7 @@ export default async function ToolPage({ params }: { params: Promise<{ id: strin
   return (
     <div className="min-h-screen bg-gray-black">
       <nav className="p-4 border-b border-gray-800">
-        <Link href="/" className="text-blue-400 hover:text-blue-300">
+        <Link href="/" className="hover:opacity-80" style={{ color: 'var(--brand-light)' }}>
           ← Back to Directory
         </Link>
       </nav>
@@ -76,7 +76,7 @@ export default async function ToolPage({ params }: { params: Promise<{ id: strin
                 href={tool.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 font-semibold"
+                className="btn-primary inline-block px-8 py-3 font-semibold"
               >
                 Visit {tool.name}
               </a>

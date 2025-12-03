@@ -10,7 +10,7 @@ export default async function DealsPage() {
   return (
     <div className="min-h-screen bg-gray-black">
       <nav className="p-4 border-b border-gray-800">
-        <Link href="/" className="text-blue-400 hover:text-blue-300">
+        <Link href="/" className="hover:opacity-80" style={{ color: 'var(--brand-light)' }}>
           ← Back to Directory
         </Link>
       </nav>

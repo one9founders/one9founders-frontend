@@ -433,7 +433,7 @@ export default function AdminPage() {
               <div className="flex gap-4">
                 <button
                   onClick={downloadTemplate}
-                  className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium transition-colors"
+                  className="btn-primary px-6 py-3 font-medium"
                 >
                   Download Template
                 </button>
@@ -477,7 +477,7 @@ export default function AdminPage() {
                       </span>
                     )}
                     {tool.verified && (
-                      <span className="px-2 py-1 text-xs rounded-full bg-blue-500 text-white font-medium">
+                      <span className="px-2 py-1 text-xs rounded-full text-white font-medium" style={{ backgroundColor: 'var(--brand-primary)' }}>
                         Verified
                       </span>
                     )}
@@ -499,7 +499,7 @@ export default function AdminPage() {
                 <div className="flex gap-2 ml-4">
                   <button
                     onClick={() => handleEdit(tool)}
-                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-medium transition-colors"
+                    className="btn-primary px-4 py-2 text-sm font-medium"
                   >
                     Edit
                   </button>

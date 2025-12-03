@@ -56,6 +56,7 @@ export default function Navbar() {
               <button onClick={scrollToTools} style={{ color: 'var(--gray-500)' }} className="hover:text-white bg-transparent border-none cursor-pointer">Explore</button>
               <Link href="/deals" style={{ color: 'var(--gray-500)' }} className="hover:text-white">Deals</Link>
               <Link href="/compare" style={{ color: 'var(--gray-500)' }} className="hover:text-white">Compare</Link>
+              <Link href="/news" style={{ color: 'var(--gray-500)' }} className="hover:text-white">News</Link>
               <a href="/admin" style={{ color: 'var(--gray-500)' }} className="hover:text-white">Admin</a>
               <Link href="/about" style={{ color: 'var(--gray-500)' }} className="hover:text-white">About</Link>
             </div>
@@ -72,7 +73,7 @@ export default function Navbar() {
               ) : (
                 <button 
                   onClick={() => setShowAuthModal(true)}
-                  className="text-white bg-blue-600 px-4 py-2 rounded-lg hover:bg-blue-700"
+                  className="btn-primary px-4 py-2"
                 >
                   Sign In
                 </button>

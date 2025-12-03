@@ -19,11 +19,17 @@ export default function DealCard({ deal }: DealCardProps) {
   const isExpired = daysLeft <= 0;
 
   return (
-    <div className={`rounded-lg overflow-hidden shadow-lg transition-all duration-300 hover:shadow-xl ${
-      deal.featured_deal 
-        ? 'bg-gradient-to-br from-blue-600 to-purple-600 border-2 border-blue-400' 
-        : 'bg-gray-900 border border-gray-800'
-    }`}>
+    <div 
+      className={`rounded-lg overflow-hidden shadow-lg transition-all duration-300 hover:shadow-xl ${
+        deal.featured_deal 
+          ? 'border-2' 
+          : 'bg-gray-900 border border-gray-800'
+      }`}
+      style={deal.featured_deal ? { 
+        background: 'linear-gradient(to bottom right, var(--brand-primary), var(--brand-tertiary))',
+        borderColor: 'var(--brand-light)'
+      } : {}}
+    >
       
       {/* Header */}
       <div className="relative">
@@ -52,7 +58,7 @@ export default function DealCard({ deal }: DealCardProps) {
           {deal.tool_name}
         </h3>
         
-        <p className={`text-sm mb-2 ${deal.featured_deal ? 'text-blue-100' : 'text-blue-400'}`}>
+        <p className={`text-sm mb-2 ${deal.featured_deal ? 'text-white' : ''}`} style={!deal.featured_deal ? { color: 'var(--brand-light)' } : {}}>
           {deal.offer_title}
         </p>
         

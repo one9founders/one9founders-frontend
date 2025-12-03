@@ -36,7 +36,7 @@ export default function SeedDealsPage() {
         <button
           onClick={handleSeed}
           disabled={loading}
-          className="w-full py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+          className="btn-primary w-full py-3 disabled:opacity-50"
         >
           {loading ? 'Seeding Deals...' : 'Seed Deals'}
         </button>

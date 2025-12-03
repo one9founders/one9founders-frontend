@@ -31,10 +31,10 @@ export default function NewsletterSignup() {
   };
 
   return (
-    <section className="py-16 px-4 bg-gray-900">
+    <section className="py-16 px-4" style={{ backgroundColor: 'var(--gray-900)' }}>
       <div className="max-w-2xl mx-auto text-center">
         <h2 className="text-3xl font-bold text-white mb-4">Stay Updated</h2>
-        <p className="text-gray-300 mb-8">
+        <p className="mb-8" style={{ color: 'var(--gray-400)' }}>
           Get notified when we add new AI tools and features
         </p>
         
@@ -44,14 +44,19 @@ export default function NewsletterSignup() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter your email"
-            className="flex-1 px-4 py-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:border-blue-500 focus:outline-none"
+            className="flex-1 px-4 py-3 rounded-lg text-white focus:outline-none"
+            style={{ 
+              backgroundColor: 'var(--gray-800)', 
+              border: '1px solid var(--gray-700)',
+              '&:focus': { borderColor: 'var(--blue-500)' }
+            }}
             disabled={loading}
             required
           />
           <button
             type="submit"
             disabled={loading || !email}
-            className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+            className="btn-primary px-6 py-3 disabled:opacity-50"
           >
             {loading ? 'Subscribing...' : 'Subscribe'}
           </button>

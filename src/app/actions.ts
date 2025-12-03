@@ -413,7 +413,7 @@ export async function getAllDeals() {
       console.error('Supabase deals error:', error);
       throw error;
     }
-    console.log('Deals data:', data);
+    // console.log('Deals data:', data);
     return data || [];
   } catch (error) {
     console.error('Get deals error:', error);
